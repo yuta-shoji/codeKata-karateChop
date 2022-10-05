@@ -8,7 +8,7 @@ export class KarateChop {
         if (array.length === 0) return resultIndex
 
         while (minIndex <= maxIndex) {
-            let midIndex = Math.floor((maxIndex + maxIndex) / 2)
+            let midIndex = Math.floor((minIndex + maxIndex) / 2)
             if (array[midIndex] === target) {
                 resultIndex = midIndex
                 break
@@ -21,12 +21,30 @@ export class KarateChop {
         return resultIndex
     }
 
-    public recursive(target: number, array: number[]) {
-        return -1;
-    }
-
     public binarySearchByRecursive(target: number, array: number[]): number {
-        return this.recursive(target, array)
+        if (array.length === 0) return -1
+
+        return this.recursive(target, array, 0, array.length - 1)
     }
 
+    private recursive(target: number, array: number[], minIndex: number, maxIndex: number): number {
+        let midIndex = Math.floor((minIndex + maxIndex) / 2)
+
+        if (minIndex > maxIndex) return -1
+
+        if (array[midIndex] === target) {
+            return midIndex
+        } else if (array[midIndex] < target) {
+            return this.recursive(target, array, midIndex + 1, maxIndex)
+        } else {
+            return this.recursive(target, array, minIndex, midIndex - 1)
+        }
+    }
+
+    public binarySearchByArraySlices(target: number, array: number[]) {
+        if (array.length === 0) return -1
+
+
+
+    }
 }
